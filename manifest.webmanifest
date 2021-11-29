@@ -2,7 +2,7 @@
   "name": "SVHS Schedule",
   "short_name": "Schedule",
   "theme_color": "#1f4068",
-  "background_color": "#1b1b2f",
+  "background_color": "#e43f5a",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
