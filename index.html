@@ -1,62 +1,94 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Schedule</title>
-    <link href="./assets/icons/icon-48x48.png" rel="icon">
+
+    <meta name="title" content="Schedule" />
+    <meta
+      name="description"
+      content="Still can't be bothered to learn how to tell time. But now fancier"
+    />
+    <meta
+      name="keywords"
+      content="schedule, svhs, chaos, everythingischaos, scotts valley"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="English" />
+
+    <link href="./assets/icons/icon-48x48.png" rel="icon" />
     <link href="style.css" rel="stylesheet" type="text/css" />
     <link href="manifest.webmanifest" rel="manifest" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-156025814-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-156025814-1");
+    </script>
   </head>
   <body>
-    <table id="periods">
-    </table>
-    <div id='timer'>Loading...</div>
-    <div id='next'></div>
+    <table id="periods"></table>
+    <div id="timer">Loading...</div>
+    <div id="next"></div>
 
-    <button id='shownaming'>Edit Schedule</button>
+    <button id="shownaming">Edit Schedule</button>
 
-    <div id='naming' style='display: none;'>
-      <label for='p1'>Period 1:</label>
-      <input id='p1' type='text' class='pinput'><br>
-      <label for='p2'>Period 2:</label>
-      <input id='p2' type='text' class='pinput'><br>
-      <label for='p3'>Period 3:</label>
-      <input id='p3' type='text' class='pinput'><br>
-      <label for='p4'>Period 4:</label>
-      <input id='p4' type='text' class='pinput'><br>
-      <label for='p5'>Period 5:</label>
-      <input id='p5' type='text' class='pinput'><br>
-      <label for='p6'>Period 6:</label>
-      <input id='p6' type='text' class='pinput'><br>
-      <label for='p7'>Period 7:</label>
-      <input id='p7' type='text' class='pinput'><br>
+    <div id="naming" style="display: none;">
+      <label for="p1">Period 1:</label>
+      <input id="p1" type="text" class="pinput" /><br />
+      <label for="p2">Period 2:</label>
+      <input id="p2" type="text" class="pinput" /><br />
+      <label for="p3">Period 3:</label>
+      <input id="p3" type="text" class="pinput" /><br />
+      <label for="p4">Period 4:</label>
+      <input id="p4" type="text" class="pinput" /><br />
+      <label for="p5">Period 5:</label>
+      <input id="p5" type="text" class="pinput" /><br />
+      <label for="p6">Period 6:</label>
+      <input id="p6" type="text" class="pinput" /><br />
+      <label for="p7">Period 7:</label>
+      <input id="p7" type="text" class="pinput" /><br />
     </div>
 
-<div id='calendar' style='display: none;'>
-  <div class='calendar-day'>Mon</div>
-  <div class='calendar-day'>Tue</div>
-  <div class='calendar-day'>Wed</div>
-  <div class='calendar-day'>Thu</div>
-  <div class='calendar-day'>Fri</div>
-  <div class='calendar-day'>Mon</div>
-  <div class='calendar-day'>Tue</div>
-  <div class='calendar-day'>Wed</div>
-  <div class='calendar-day'>Thu</div>
-  <div class='calendar-day'>Fri</div>
-  <div class='calendar-day'>Mon</div>
-  <div class='calendar-day'>Tue</div>
-  <div class='calendar-day'>Wed</div>
-  <div class='calendar-day'>Thu</div>
-  <div class='calendar-day'>Fri</div>
-</div>
-<!-- <footer>Ryan Lansdowne is cool</footer> -->
+    <div id="calendar" style="display: none;">
+      <div class="calendar-day">Mon</div>
+      <div class="calendar-day">Tue</div>
+      <div class="calendar-day">Wed</div>
+      <div class="calendar-day">Thu</div>
+      <div class="calendar-day">Fri</div>
+      <div class="calendar-day">Mon</div>
+      <div class="calendar-day">Tue</div>
+      <div class="calendar-day">Wed</div>
+      <div class="calendar-day">Thu</div>
+      <div class="calendar-day">Fri</div>
+      <div class="calendar-day">Mon</div>
+      <div class="calendar-day">Tue</div>
+      <div class="calendar-day">Wed</div>
+      <div class="calendar-day">Thu</div>
+      <div class="calendar-day">Fri</div>
+    </div>
+    <!-- <footer>Ryan Lansdowne is cool</footer> -->
     <script>
-      if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js');
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
       }
     </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <script src="./dist/script.js"></script>
   </body>
 </html>
