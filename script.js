@@ -127,15 +127,16 @@ function generateSchedule(allSchedules) {
           ? " class='break'"
           : " value=" + currentP.name
       }>
-        <td>${pTitle}</td>
+        <td><div class='colored'>&nbsp;</div><div class='ptitle'>${pTitle}</div></td>
         <td>${startAPM}</td>
         <td>${endAPM}</td>
       </tr>`;
+      setColor(currentP.name, getClassColor(currentP.name))
     }
 
-    $(".pinput").each(function (i) {
-      $(this).val(getClassName(String(i + 1)));
-    });
+    // $(".pinput").each(function (i) {
+    //   $(this).val(getClassName(String(i + 1)));
+    // });
 
     //Render timer every 1 ms
     latestIntervalID = setInterval(renderTimer, 1, times, dayNum);
@@ -161,6 +162,7 @@ function getClassName(period) {
 
 //Create original schedule
 $(document).ready(() => {
+  generateEdit();
   generateSchedule(defaultAllSchedules);
 });
 
@@ -305,10 +307,33 @@ $("#shownaming").click(() => {
 });
 
 //change period name on input
-$(".pinput").on("input", function () {
+$("#naming").on("input", ".pinput", function () {
   let $input = $(this);
   setClassName($input.attr("id")[1], $input.val());
 });
+
+$("#naming").on("input", ".pinputb", function () {
+  let $input = $(this);
+  setClassName($input.attr("id")[1], $input.val());
+});
+$("#naming").on("click", ".pinputb", function () {
+  let $input = $(this);
+  let period = $input.attr('id').slice(2,3);
+  console.log(period);
+  if($input.prop('checked')) {
+    $(`#pc${period}`).show();
+    setColor(period, $(`#pc${period}`).val());
+  } else {
+    $(`#pc${period}`).hide();
+    setColor(period)
+  }
+})
+function color(element) {
+  console.log("color")
+  let $input = $(element);
+  let period = $input.attr('id').slice(2,3);
+  setColor(period, $input.val());
+}
 
 /**
  * Change a class name
@@ -322,10 +347,52 @@ function setClassName(period, className) {
     //if there is an actual class name, set the name
     if (className && className != "") {
       localStorage.setItem(period, className);
-      $(`tr[value=${period}] td:nth-child(1)`).text(period + ": " + className);
+      $(`tr[value=${period}] td:nth-child(1) .ptitle`).html(`${period}: ${className}`);
     } else { //if not, remove it and reset the schedule
       localStorage.removeItem(period);
-      $(`tr[value=${period}] td:nth-child(1)`).text(period);
+      $(`tr[value=${period}] td:nth-child(1) .ptitle`).html(`${period}`);
     }
+  }
+}
+
+function generateEdit() {
+  for(let i = 1; i <= 7; i++) {
+    let className = getClassName(i);
+    let classColor = getClassColor(i);
+    $('#naming').append(
+      `
+      <label for="p${i}">Period ${i}:</label>
+      <input id="p${i}" type="text" class="pinput" value="${className ? className:''}" />
+      <input id="pb${i}" type="checkbox" class="pinputb"${classColor ? ' checked':''}/>
+      <label for="pb${i}">Color?</label>
+      <input id="pc${i}" type="color" class="pintputc" onchange="color(this)" ${classColor ? `value='${classColor}'`:'style="display:none"'}/>
+      <br />
+      `
+    )
+  }
+}
+
+function setColor(period, color = undefined) {
+  if(hasStorage) {
+    if (color && color != "") {
+      localStorage.setItem(period+"c", color);
+      $(`tr[value=${period}] td:nth-child(1) .colored`).css('background-color', color).show();
+      $(`#pc${period}`).val(color)
+    } else { //if not, remove it and reset the schedule
+      localStorage.removeItem(period+"c");
+      $(`tr[value=${period}] td:nth-child(1) .colored`).hide();
+    }
+  }
+}
+
+function getClassColor(period) {
+  //If the period isn't Lunch or Break, and the browser allows appStorage
+  if (hasStorage) {
+    //if it does, get the name of the period if it exists
+    return localStorage.getItem(period+"c")
+      ? localStorage.getItem(period+"c")
+      : undefined;
+  } else {
+    return undefined;
   }
 }

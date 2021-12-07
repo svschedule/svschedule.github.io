@@ -1,3 +1,4 @@
+
 body {
   font-family: sans-serif;
   font-size: max(3vh, 16px);
@@ -26,16 +27,19 @@ td input {
   font-family: inherit;
   font-size: inherit;
   padding: none;
-  width: inherit;
 }
 .break {
   border: 5px solid red;
 }
-input {
+.pinput {
   background-color: #1f4068;
   width: 130px;
   font-size: max(3vh, 16px);
   color: #FFFFFF;
+}
+input[type='color'] {
+  background-color: #1f4068;
+  margin-left: 2vw;
 }
 table tr td:nth-child(1) {
   background-color: #1f4068;
@@ -78,4 +82,34 @@ button {
   border: none;
   margin: 3px;
   cursor: pointer;
+}
+tr .colored {
+  /* background-color: yellow; */
+  display: inline-block;
+  width: 2vh;
+  margin: 0;
+  margin-right: 2px;
+}
+.break .colored {
+  background-color: aqua;
+}
+tr[value='1'] td .colored{
+  size: 20px;
+}
+.ptitle {
+  display: inline;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5rem;
+  background-color: #222222;
+  padding: 0;
+  margin: 0;
+}
+footer a {
+  margin-left: 2vw;
+  color: #70b0ff;
 }
