@@ -122,3 +122,8 @@ footer a {
   margin-left: 2vw;
   color: #70b0ff;
 }
+#next {
+  display: inline-block;
+  padding: 1px;
+  border-radius: 4px;
+}

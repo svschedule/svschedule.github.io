@@ -242,18 +242,21 @@ function renderTimer(times, dayNum) {
 
       timerDOM.innerHTML =
         text.minutes + ":" + text.seconds + "." + text.milliseconds;
-      if (prevNext != nextTime) {
+    }
+    if (prevNext != nextTime) {
         $("#next").text(
           "Until " +
             nextTime.name +
             (getClassName(nextTime.name.slice(-1))
               ? ": " + getClassName(nextTime.name.slice(-1))
               : "")
-        );
+        ).css("border", getClassColor(nextTime.name.slice(-1))? `5px solid ${getClassColor(nextTime.name.slice(-1))}` : "none");
+
+        $('link[rel="icon"]').attr('href', `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:v='https://vecta.io/nano' height='141.732' width='141.732'><path fill='${encodeURIComponent(getClassColor(nextTime.name.slice(-1))) || 'rgb(255, 255, 255)'}' d='M113.326 70.191c0-2.97-2.377-5.376-5.307-5.376H75.543V32.387v-.001a5.4 5.4 0 0 0-5.396-5.397 5.4 5.4 0 0 0-5.398 5.397V70.17a5.4 5.4 0 0 0 5.398 5.398h37.875c2.927 0 5.304-2.407 5.304-5.377m16.207-.034c0 32.798-26.584 59.386-59.375 59.386s-59.375-26.588-59.375-59.386 26.582-59.386 59.375-59.386 59.375 26.588 59.375 59.386m10.781 0C140.314 31.41 108.904 0 70.158 0S0 31.41 0 70.157s31.41 70.157 70.158 70.157 70.156-31.41 70.156-70.157'/></svg>`);
+        console.log(text.minutes + ":" + text.seconds + "." + text.milliseconds);
+
         prevNext = nextTime;
       }
-    }
-
     if (prevSec != text.seconds) {
       //set the title to the time
       // if (document.visibilityState == "visible") {
@@ -262,14 +265,17 @@ function renderTimer(times, dayNum) {
       //   document.title = text.minutes + ":" + String(parseInt(text.seconds)-1);
       // }
 
+
       //set the prev seconds to the latest second
       prevSec = text.seconds;
     }
+
   } else {
     //if there is no event coming up, display text
     timerDOM.innerText = "School's Out!";
     document.title = "School's Out!";
   }
+    
 }
 
 /**
