@@ -76,7 +76,7 @@ function generateSchedule(allSchedules) {
     return;
   } else {
     $("#periods").html(
-      "<tr><th>Period</th><th>Start/End</th><th>Duration</th></tr>"
+      "<tr><th>Period</th><th>Start</th><th>End</th></tr>"
     );
 
     //will have the time events pushed to it
