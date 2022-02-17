@@ -31,8 +31,8 @@ function newDebugDate() {
 let override;
 
 //get the schedule json in case it's been updated
-$.get(
-  "https://gist.githubusercontent.com/piguyisme/e652e0a5009f17efde347c390767d069/raw/schedule.json",
+fetch("https://gist.githubusercontent.com/piguyisme/e652e0a5009f17efde347c390767d069/raw/schedule.json")
+.then(
   (data) => {
     if (JSON.parse(data) != defaultAllSchedules) {
       defaultAllSchedules = JSON.parse(data);
@@ -42,8 +42,8 @@ $.get(
 );
 
 //get the override data for rallies and stuff
-$.get(
-  "https://gist.githubusercontent.com/piguyisme/db88af35c569b7b5a8aff60c679f527c/raw/overrides.json",
+fetch("https://gist.githubusercontent.com/piguyisme/db88af35c569b7b5a8aff60c679f527c/raw/overrides.json")
+.then(
   (data) => {
     override = JSON.parse(data);
     generateSchedule(defaultAllSchedules);
