@@ -31,24 +31,22 @@ function newDebugDate() {
 let override;
 
 //get the schedule json in case it's been updated
-$.get(
-  "https://gist.githubusercontent.com/piguyisme/e652e0a5009f17efde347c390767d069/raw/schedule.json",
-  (data) => {
+fetch("https://gist.githubusercontent.com/piguyisme/e652e0a5009f17efde347c390767d069/raw/schedule.json")
+  .then((data) => {
     if (JSON.parse(data) != defaultAllSchedules) {
       defaultAllSchedules = JSON.parse(data);
       generateSchedule(defaultAllSchedules);
     }
   }
-);
+  );
 
 //get the override data for rallies and stuff
-$.get(
-  "https://gist.githubusercontent.com/piguyisme/db88af35c569b7b5a8aff60c679f527c/raw/overrides.json",
-  (data) => {
+fetch("https://gist.githubusercontent.com/piguyisme/db88af35c569b7b5a8aff60c679f527c/raw/overrides.json")
+  .then((data) => {
     override = JSON.parse(data);
     generateSchedule(defaultAllSchedules);
   }
-);
+  );
 
 /**
  * Generate list of time events (start/ends)
@@ -59,9 +57,8 @@ function generateSchedule(allSchedules) {
   let currentSchedule;
   if (override) {
     const curDate = newDebugDate();
-    const dateString = `${curDate.getDate()}-${
-      curDate.getMonth() + 1
-    }-${curDate.getFullYear()}`;
+    const dateString = `${curDate.getDate()}-${curDate.getMonth() + 1
+      }-${curDate.getFullYear()}`;
 
     if (override[dateString]) {
       currentSchedule = override[dateString];
@@ -118,15 +115,14 @@ function generateSchedule(allSchedules) {
       let pTitle =
         currentP.name +
         (currentP.name != "Break" &&
-        currentP.name != "Lunch" &&
-        getClassName(currentP.name)
+          currentP.name != "Lunch" &&
+          getClassName(currentP.name)
           ? ": " + getClassName(currentP.name)
           : "");
-      document.getElementById("periods").innerHTML += `<tr${
-        currentP.name == "Break" || currentP.name == "Lunch"
+      document.getElementById("periods").innerHTML += `<tr${currentP.name == "Break" || currentP.name == "Lunch"
           ? " class='break'"
           : " value=" + currentP.name
-      }>
+        }>
         <td><div class='colored'>&nbsp;</div><div class='ptitle'>${pTitle}</div></td>
         <td>${startAPM}</td>
         <td>${endAPM}</td>
@@ -244,19 +240,19 @@ function renderTimer(times, dayNum) {
         text.minutes + ":" + text.seconds + "." + text.milliseconds;
     }
     if (prevNext != nextTime) {
-        $("#next").text(
-          "Until " +
-            nextTime.name +
-            (getClassName(nextTime.name.slice(-1))
-              ? ": " + getClassName(nextTime.name.slice(-1))
-              : "")
-        ).css("border", getClassColor(nextTime.name.slice(-1))? `5px solid ${getClassColor(nextTime.name.slice(-1))}` : "none");
+      $("#next").text(
+        "Until " +
+        nextTime.name +
+        (getClassName(nextTime.name.slice(-1))
+          ? ": " + getClassName(nextTime.name.slice(-1))
+          : "")
+      ).css("border", getClassColor(nextTime.name.slice(-1)) ? `5px solid ${getClassColor(nextTime.name.slice(-1))}` : "none");
 
-        $('link[rel="icon"]').attr('href', `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:v='https://vecta.io/nano' height='141.732' width='141.732'><path fill='${encodeURIComponent(getClassColor(nextTime.name.slice(-1))) || 'rgb(255, 255, 255)'}' d='M113.326 70.191c0-2.97-2.377-5.376-5.307-5.376H75.543V32.387v-.001a5.4 5.4 0 0 0-5.396-5.397 5.4 5.4 0 0 0-5.398 5.397V70.17a5.4 5.4 0 0 0 5.398 5.398h37.875c2.927 0 5.304-2.407 5.304-5.377m16.207-.034c0 32.798-26.584 59.386-59.375 59.386s-59.375-26.588-59.375-59.386 26.582-59.386 59.375-59.386 59.375 26.588 59.375 59.386m10.781 0C140.314 31.41 108.904 0 70.158 0S0 31.41 0 70.157s31.41 70.157 70.158 70.157 70.156-31.41 70.156-70.157'/></svg>`);
-        console.log(text.minutes + ":" + text.seconds + "." + text.milliseconds);
+      $('link[rel="icon"]').attr('href', `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:v='https://vecta.io/nano' height='141.732' width='141.732'><path fill='${encodeURIComponent(getClassColor(nextTime.name.slice(-1))) || 'rgb(255, 255, 255)'}' d='M113.326 70.191c0-2.97-2.377-5.376-5.307-5.376H75.543V32.387v-.001a5.4 5.4 0 0 0-5.396-5.397 5.4 5.4 0 0 0-5.398 5.397V70.17a5.4 5.4 0 0 0 5.398 5.398h37.875c2.927 0 5.304-2.407 5.304-5.377m16.207-.034c0 32.798-26.584 59.386-59.375 59.386s-59.375-26.588-59.375-59.386 26.582-59.386 59.375-59.386 59.375 26.588 59.375 59.386m10.781 0C140.314 31.41 108.904 0 70.158 0S0 31.41 0 70.157s31.41 70.157 70.158 70.157 70.156-31.41 70.156-70.157'/></svg>`);
+      console.log(text.minutes + ":" + text.seconds + "." + text.milliseconds);
 
-        prevNext = nextTime;
-      }
+      prevNext = nextTime;
+    }
     if (prevSec != text.seconds) {
       //set the title to the time
       // if (document.visibilityState == "visible") {
@@ -275,7 +271,7 @@ function renderTimer(times, dayNum) {
     timerDOM.innerText = "School's Out!";
     document.title = "School's Out!";
   }
-    
+
 }
 
 /**
@@ -288,7 +284,7 @@ function msToTime(duration) {
   var milliseconds = Math.floor(duration % 1000),
     seconds = Math.floor((duration / 1000) % 60),
     minutes = Math.floor(duration / (1000 * 60));
-  
+
   //add 0 to beginning of numbers if it's only one digit
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -324,9 +320,9 @@ $("#naming").on("input", ".pinputb", function () {
 });
 $("#naming").on("click", ".pinputb", function () {
   let $input = $(this);
-  let period = $input.attr('id').slice(2,3);
+  let period = $input.attr('id').slice(2, 3);
   console.log(period);
-  if($input.prop('checked')) {
+  if ($input.prop('checked')) {
     $(`#pc${period}`).show();
     setColor(period, $(`#pc${period}`).val());
   } else {
@@ -337,7 +333,7 @@ $("#naming").on("click", ".pinputb", function () {
 function color(element) {
   console.log("color")
   let $input = $(element);
-  let period = $input.attr('id').slice(2,3);
+  let period = $input.attr('id').slice(2, 3);
   setColor(period, $input.val());
 }
 
@@ -362,16 +358,16 @@ function setClassName(period, className) {
 }
 
 function generateEdit() {
-  for(let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 7; i++) {
     let className = getClassName(i);
     let classColor = getClassColor(i);
     $('#naming').append(
       `
       <label for="p${i}">Period ${i}:</label>
-      <input id="p${i}" type="text" class="pinput" value="${className ? className:''}" />
-      <input id="pb${i}" type="checkbox" class="pinputb"${classColor ? ' checked':''}/>
+      <input id="p${i}" type="text" class="pinput" value="${className ? className : ''}" />
+      <input id="pb${i}" type="checkbox" class="pinputb"${classColor ? ' checked' : ''}/>
       <label for="pb${i}">Color?</label>
-      <input id="pc${i}" type="color" class="pintputc" onchange="color(this)" ${classColor ? `value='${classColor}'`:'style="display:none"'}/>
+      <input id="pc${i}" type="color" class="pintputc" onchange="color(this)" ${classColor ? `value='${classColor}'` : 'style="display:none"'}/>
       <br />
       `
     )
@@ -379,13 +375,13 @@ function generateEdit() {
 }
 
 function setColor(period, color = undefined) {
-  if(hasStorage) {
+  if (hasStorage) {
     if (color && color != "") {
-      localStorage.setItem(period+"c", color);
+      localStorage.setItem(period + "c", color);
       $(`tr[value=${period}] td:nth-child(1) .colored`).css('background-color', color).show();
       $(`#pc${period}`).val(color)
     } else { //if not, remove it and reset the schedule
-      localStorage.removeItem(period+"c");
+      localStorage.removeItem(period + "c");
       $(`tr[value=${period}] td:nth-child(1) .colored`).hide();
     }
   }
@@ -395,8 +391,8 @@ function getClassColor(period) {
   //If the period isn't Lunch or Break, and the browser allows appStorage
   if (hasStorage) {
     //if it does, get the name of the period if it exists
-    return localStorage.getItem(period+"c")
-      ? localStorage.getItem(period+"c")
+    return localStorage.getItem(period + "c")
+      ? localStorage.getItem(period + "c")
       : undefined;
   } else {
     return undefined;
